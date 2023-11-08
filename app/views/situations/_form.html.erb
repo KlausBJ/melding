@@ -1,0 +1,96 @@
+<%= form_with(model: situation) do |form| %>
+  <% if situation.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(situation.errors.count, "error") %> prohibited this situation from being saved:</h2>
+
+      <ul>
+        <% situation.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if !(situation.bids.include? @slut) %>
+    <div class="container bg-success text-white py-4">
+      <% @bids.each do |b| %>
+        <input type="radio" name="situation[bid_id]" value="<%= b.id %>"><%= b.pres %>&nbsp;&nbsp;<% if b.suit_id == 5 %><br><% end %>
+      <% end %>
+    </div>
+  <% elsif situation.intro.nil? || situation.intro == '' %>
+    <div>
+      <%= form.label :intro, style: "display: block" %>
+      <%= form.text_area :intro %>
+    </div>
+  <% else %>
+    <div class="container bg-success text-white py-4">
+      <%= @situation.intro %>
+    </div><br>
+  <% end %>
+  <% if @situation.bids.any? %>
+    <div>
+      Meldinger:<br>
+      <% @situation.bids.order(:number,:suit_id).each do |b| %>
+        <% if b != @slut %><%= b.present %><br><% end %>
+      <% end %>
+      <br>
+    </div>
+  <% end %>
+  <div style="font-size: 0">
+    <% @situation.hand.cards.order(:suit_id, :value_id).each do |card| %>
+      <img src="/<%= card.short %>_left.png" style="border:0px">
+    <% end %>
+    <img src="/<%= @situation.hand.cards.order(:suit_id, :value_id).last.short %>_right.png" style="border:0px">
+  </div>
+  <div>
+    <%= @situation.hand.htype %>, HP: <%= @situation.hand.hp %><br><br>
+  </div>
+  <% if situation.intro || situation.intro != '' %>
+    <div>
+      <% @situation.choices.each do |ch| %>
+        <b><%= ch.statement.content %></b>
+        <% if ch.statement.convention != '' %> (<%= ch.statement.convention %>) <% end %>
+        <% if ch.correct %>korrekt<% end %>
+        <br>
+      <% end %>
+      <br>
+    </div>
+  <% end %>
+  <% if situation.statements.count > 1 %>
+    <% if situation.summary.nil? || situation.summary == '' %>
+      <div>
+        <%= form.label :summary, style: "display: block" %>
+        <%= form.text_area :summary %>
+      </div>
+    <% else %>
+      <div class="container bg-success text-white py-4">
+        <%= @situation.summary %>
+      </div>
+    <% end %>
+  <% end %>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+Nyt udsagn:
+<%= form_with(model: statement) do |stform| %>
+  <div>
+    <%= stform.hidden_field :situation_id, value: @situation.id %>
+    <%= stform.label :convention, style: "display: block" %>
+    <%= stform.text_field :convention %>
+  </div>
+
+  <div>
+    <%= stform.label :content, style: "display: block" %>
+    <%= stform.text_area :content %>
+  </div>
+
+  <div>
+    <%= stform.label :correct, style: "display: block" %>
+    <%= stform.check_box :correct %>
+  </div>
+
+  <div>
+    <%= stform.submit %>
+  </div>
+<% end %>

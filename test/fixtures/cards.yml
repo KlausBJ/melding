@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  suit: one
+  value: one
+
+two:
+  suit: two
+  value: two

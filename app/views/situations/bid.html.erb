@@ -1,0 +1,8 @@
+<div>
+  Vælg en melding:
+</div>
+<div>
+<% @bids.each do |b| %>
+  <%= link_to b.present, "/situations/#{@situation.id}/bid/#(b.id)" %><br>
+<% end %>
+</div>

@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @hand %>
+<div style="font-size: 0">
+<% prefix = 'start' %>
+<% @cards.each do |card| %>
+<img src="/<%= prefix %>_<%= card.short %>.png" style="border:0px">
+<% prefix = 'midt' %>
+<% end %>
+<img src="/slut_<%= @cards.last.short %>.png" style="border:0px">
+</div>
+<div>
+  <%= link_to "Edit this hand", edit_hand_path(@hand) %> |
+  <%= link_to "Back to hands", hands_path %>
+
+  <%= button_to "Destroy this hand", @hand, method: :delete %>
+</div>

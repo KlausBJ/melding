@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @card %>
+<div style="font-size: 0">
+  <img src="/<%= @card.short %>_left.png" style="border:0px">
+  <img src="/<%= @card.short %>_right.png" style="border:0px">
+</div>
+<div>
+  <%= link_to("Previous card", @card.previous) if @card.previous %>
+  <%= link_to("Next card", @card.next) if @card.next %>
+</div>

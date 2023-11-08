@@ -1,0 +1,35 @@
+<%= render @situation %>
+
+<div class="container bg-success text-white py-4">
+  <%= @situation.intro %>
+</div><br>
+  <% if @situation.bids.any? %>
+    <div>
+      Meldinger:<br>
+      <% @situation.bids.order(:number,:suit_id).each do |b| %>
+        <%= b.present %><br>
+      <% end %>
+      <br>
+    </div>
+  <% end %>
+<div class="container bg-success text-white py-4" style="font-size: 0">
+  <% @cards.each do |card| %>
+    <img src="/<%= card.short %>_left.png" style="border:0px">
+  <% end %>
+  <img src="/<%= @cards.last.short %>_right.png" style="border:0px">
+</div>
+<div class="container bg-success text-white py-4">
+  <%= @hand.htype %>, HP: <%= @hand.hp %>
+</div><br>
+<div class="container bg-success text-white py-4">
+  <% @situation.choices.each do |ch| %>
+    <b><%= ch.statement.content %></b>
+    <% if ch.statement.convention != '' %> (<%= ch.statement.convention %>) <% end %>
+    <% if ch.correct %>korrekt<% end %>
+    <br>
+  <% end %>
+  <br>
+</div>
+<div class="container bg-success text-white py-4">
+  <%= @situation.summary %>
+</div>

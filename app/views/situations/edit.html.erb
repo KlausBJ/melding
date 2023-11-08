@@ -1,0 +1,11 @@
+<h1>Editing situation</h1>
+
+<div>
+  <% if @situation.previous %><%= link_to "Previous situation", edit_situation_path(@situation.previous) %><% if @situation.next %> | <% end %><% end %>
+  <% if @situation.next %><%= link_to "Next situation", edit_situation_path(@situation.next) %><% end %>
+</div>
+
+<%= render "form", situation: @situation, statement: Statement.new %>
+
+<br>
+

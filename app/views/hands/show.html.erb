@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @hand %>
+<div style="font-size: 0">
+  <% @cards.each do |card| %>
+    <img src="/<%= card.short %>_left.png" style="border:0px">
+  <% end %>
+  <img src="/<%= @cards.last.short %>_right.png" style="border:0px">
+</div>
+<div>
+  <%= @hand.htype %>, HP: <%= @hand.hp %>
+</div>
+<div>
+  <%= link_to("Previous hand", @hand.previous) if @hand.previous %>
+  <%= link_to("Next hand", @hand.next) if @hand.next %>
+</div>
